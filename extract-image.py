@@ -1,42 +1,34 @@
-# Importing all necessary libraries
+import os
 import cv2
 import os
-  
-# Read the video from specified path
-cam = cv2.VideoCapture("./video/video.mov")
-  
+
+video_directory = 'video'
+image_directory = 'data'
+frameRate = 0.5 #//it will capture image in each 0.5 second
+
 try:
-      
-    # creating a folder named data
-    if not os.path.exists('data'):
-        os.makedirs('data')
-  
+  # creating a folder named data
+  if not os.path.exists(image_directory):
+      os.makedirs(image_directory)
 # if not created then raise error
 except OSError:
-    print ('Error: Creating directory of data')
-  
-# frame
-currentframe = 0
-  
-while(True):
-      
-    # reading from frame
-    ret,frame = cam.read()
-  
-    if ret:
-        # if video is still left continue creating images
-        name = './data/frame' + str(currentframe) + '.jpg'
-        print ('Creating...' + name)
-  
-        # writing the extracted images
-        cv2.imwrite(name, frame)
-  
-        # increasing counter so that it will
-        # show how many frames are created
-        currentframe += 1
-    else:
-        break
-  
-# Release all space and windows once done
-cam.release()
-cv2.destroyAllWindows()
+  print ('Error: Creating directory of data')
+
+def getFrame(vidcap, video_filename, sec, count):
+  vidcap.set(cv2.CAP_PROP_POS_MSEC, sec*1000)
+  hasFrames,image = vidcap.read()
+  filename = os.path.splitext(video_filename)[0]
+  if hasFrames:
+    cv2.imwrite(image_directory + "/" + filename + "_" + str(count) + ".jpg", image)
+  return hasFrames
+
+for video_filename in os.listdir(video_directory):
+  sec = 0
+  count = 1
+  vidcap = cv2.VideoCapture(os.path.join(video_directory, video_filename))
+  success = getFrame(vidcap, video_filename, sec, count)
+  while success:
+    count = count + 1
+    sec = sec + frameRate
+    sec = round(sec, 2)
+    success = getFrame(vidcap, video_filename, sec, count)
