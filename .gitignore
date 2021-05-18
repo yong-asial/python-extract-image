@@ -1,2 +1,9 @@
 data/
 video/
+image/
+test/
+idea/
+*.mov
+*.mp4
+*.jpg
+.DS_Store
