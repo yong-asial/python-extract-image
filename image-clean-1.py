@@ -1,13 +1,16 @@
 import pytesseract
 import os
+from PIL import Image
 
 image_directory = 'image'
 pytesseract.pytesseract.tesseract_cmd = '/usr/local/bin/tesseract'
 THRESHOLD = 100 # threshold (text len in an image) to include image to training
 previous_extracted_text = ''
 
+# download language and place it where tesseract `tessdata` is installed https://github.com/tesseract-ocr/tessdata 
+# https://blog.machine-powers.net/2018/08/06/pytesseract-intro/
 def extract_text(image_path):
-  text = pytesseract.image_to_string(image_path)
+  text = pytesseract.image_to_string(Image.open(image_path), lang='jpn', config='--psm 6')
   text = ' '.join(text.split())
   return text
 
