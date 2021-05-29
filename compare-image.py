@@ -20,8 +20,8 @@ def rmsdiff(im1, im2):
         map(lambda h, i: h*(i**2), h, range(256))
     ) / (float(im1.size[0]) * im1.size[1]))
 
-im1 = Image.open('image/video2_000036.jpg')
-im2 = Image.open('image/video2_000037.jpg')
+im1 = Image.open('image/video2_000029.jpg')
+im2 = Image.open('image/video2_000030.jpg')
 
 # crop
 im1 = crop_image(im1)
