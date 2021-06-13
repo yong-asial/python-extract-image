@@ -3,7 +3,7 @@ import os
 
 video_directory = 'video'
 image_directory = 'image'
-frameRate = 20 #//it will capture image in each x second
+frameRate = 5 #//it will capture image in each x second
 
 try:
   # creating a folder named data

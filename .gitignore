@@ -7,3 +7,5 @@ idea/
 *.mp4
 *.jpg
 .DS_Store
+captured/
+
